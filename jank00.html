@@ -196,17 +196,6 @@ code{font-weight:bold;}
 .m-highlight{background-color:#E18728;color:#eceff1;}
 .m-highlight a{color:#eceff1;text-decoration:underline;}
 
-/*
- * Made by Erik Terwan
- * 24th of November 2015
- * MIT License
- *
- *
- * If you are thinking of using this in
- * production code, beware of the browser
- * prefixes.
- */
-
 body
 {
   margin: 0;
@@ -216,6 +205,8 @@ body
   background: #232323;
   color: #cdcdcd;
   font-family: "Avenir Next", "Avenir", sans-serif;
+  
+  overflow-x: hidden; /* needed because hiding the menu on the right side is not perfect,  */
 }
 
 a
@@ -234,9 +225,9 @@ a:hover
 #menuToggle
 {
   display: block;
-  position: relative;
+  position: absolute;
   top: 50px;
-  left: 50px;
+  right: 50px;
   
   z-index: 1;
   
@@ -319,6 +310,7 @@ a:hover
  */
 #menuToggle input:checked ~ span:nth-last-child(2)
 {
+  opacity: 1;
   transform: rotate(-45deg) translate(0, -1px);
 }
 
@@ -330,9 +322,10 @@ a:hover
 {
   position: absolute;
   width: 300px;
-  margin: -100px 0 0 -50px;
+  margin: -100px 0 0 0;
   padding: 50px;
   padding-top: 125px;
+  right: -100px;
   
   background: #ededed;
   list-style-type: none;
@@ -340,7 +333,7 @@ a:hover
   /* to stop flickering of text in safari */
   
   transform-origin: 0% 0%;
-  transform: translate(-100%, 0);
+  transform: translate(100%, 0);
   
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
@@ -352,11 +345,12 @@ a:hover
 }
 
 /*
- * And let's slide it in from the left
+ * And let's fade it in from the left
  */
 #menuToggle input:checked ~ ul
 {
-  transform: none;
+  transform: scale(1.0, 1.0);
+  opacity: 1;
 }
 
 
