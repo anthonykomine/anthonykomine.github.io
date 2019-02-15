@@ -3,7 +3,37 @@
 
 
 	<!-- <nav role=navigation> <div id=menuToggle> <input type=checkbox /> <span></span> <span></span> <span></span> <ul id=menu> <a href="#"><li>Home</li></a> <a href="#"><li>About</li></a> <a href="#"><li>Info</li></a> <a href="#"><li>Contact</li></a> <a href="https://erikterwan.com/" target=_blank><li>Show me more</li></a> </ul> </div></nav> -->
-
+<nav role="navigation">
+  <div id="menuToggle">
+    <!--
+    A fake / hidden checkbox is used as click reciever,
+    so you can use the :checked selector on it.
+    -->
+    <input type="checkbox" />
+    
+    <!--
+    Some spans to act as a hamburger.
+    
+    They are acting like a real hamburger,
+    not that McDonalds stuff.
+    -->
+    <span></span>
+    <span></span>
+    <span></span>
+    
+    <!--
+    Too bad the menu has to be inside of the button
+    but hey, it's pure CSS magic.
+    -->
+    <ul id="menu">
+      <a href="#"><li>Home</li></a>
+      <a href="#"><li>About</li></a>
+      <a href="#"><li>Info</li></a>
+      <a href="#"><li>Contact</li></a>
+      <a href="https://erikterwan.com/" target="_blank"><li>Show me more</li></a>
+    </ul>
+  </div>
+</nav>
 
 	 <nav class="navbar navbar-expand-lg navbar-dark bg-primary"> <div class=navbar-expand id=navbarNavAltMarkup> <div class=navbar-nav> <a class="nav-item nav-link" href="./solid.html">Solid <span class=sr-only>(current)</span></a> <a class="nav-item nav-link" href="./clear2.html">Clear2</a> <a class="nav-item nav-link active" href="./weave2.html">Weave 2</a> </div></div></nav> <div class="m-left-panel m-page scene_element scene_element--fadeinup scene_element--fadeinleft-wide"> <div class=m-segment> <div class=segment_content> <h1 class=m-type-heading-1><a href="./detail2.html">Detail2 (Weave)</a> </h1> <h2 class=m-type-heading-1><a href="./detail.html">Detail page demo</a> </h2> <p class=description>Voluptatum doloribus est omnis molestiae sed. Officia sint et repellat dolorum a velit. Ipsam velit explicabo repudiandae qui ratione voluptas repellat exercitationem magni commodi.</span></p></div></div><div class=m-segment> <div class=segment_content> <h2 class=m-type-heading-1><a href="./page.html">Detail page demo</a> </h2> <p class=description>Voluptatum doloribus est omnis molestiae sed. Officia sint et repellat dolorum a velit. Ipsam velit explicabo repudiandae qui ratione voluptas repellat exercitationem magni commodi.</span></p></div></div><div class=m-segment> <div class=segment_content> <h2 class=m-type-heading-1><a href="./detail.html">Detail page demo</a> </h2> <p class=description>Voluptatum doloribus est omnis molestiae sed. Officia sint et repellat dolorum a velit. Ipsam velit explicabo repudiandae qui ratione voluptas repellat exercitationem magni 
 
@@ -165,6 +195,170 @@ code{font-weight:bold;}
 .m-breadcrumb .m-type-display-1{margin-top:0;}
 .m-highlight{background-color:#E18728;color:#eceff1;}
 .m-highlight a{color:#eceff1;text-decoration:underline;}
+
+/*
+ * Made by Erik Terwan
+ * 24th of November 2015
+ * MIT License
+ *
+ *
+ * If you are thinking of using this in
+ * production code, beware of the browser
+ * prefixes.
+ */
+
+body
+{
+  margin: 0;
+  padding: 0;
+  
+  /* make it look decent enough */
+  background: #232323;
+  color: #cdcdcd;
+  font-family: "Avenir Next", "Avenir", sans-serif;
+}
+
+a
+{
+  text-decoration: none;
+  color: #232323;
+  
+  transition: color 0.3s ease;
+}
+
+a:hover
+{
+  color: tomato;
+}
+
+#menuToggle
+{
+  display: block;
+  position: relative;
+  top: 50px;
+  left: 50px;
+  
+  z-index: 1;
+  
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  
+  cursor: pointer;
+  
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  
+  -webkit-touch-callout: none;
+}
+
+/*
+ * Just a quick hamburger
+ */
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: #cdcdcd;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+/*
+ * But let's hide the middle one.
+ */
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  padding-top: 125px;
+  
+  background: #ededed;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+/*
+ * And let's slide it in from the left
+ */
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+}
+
 
 </style> <style>.m-scene .scene_element{-webkit-animation-duration:0.25s;animation-duration:0.25s;-webkit-transition-timing-function:ease-in;transition-timing-function:ease-in;-webkit-animation-fill-mode:both;animation-fill-mode:both;}
 .m-scene .scene_element--fadein{-webkit-animation-name:fadeIn;animation-name:fadeIn;}
